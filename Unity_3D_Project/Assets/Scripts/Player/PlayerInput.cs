@@ -11,6 +11,8 @@ public class PlayerInput : MonoBehaviour
     public bool Jump { get; private set; }
     public bool Interaction { get; private set; }
     public bool Run { get; private set; }
+    public bool useItem { get; private set; }
+    public float selectItem { get; private set; }
 
     private void Update()
     {
@@ -21,5 +23,7 @@ public class PlayerInput : MonoBehaviour
         Jump = Input.GetKeyDown(KeyCode.Space);
         Run = Input.GetKey(KeyCode.LeftShift);
         Interaction = Input.GetMouseButtonDown(0);
+        useItem =   Input.GetKeyDown(KeyCode.E);
+        selectItem = Input.GetAxisRaw("Mouse ScrollWheel");
     }
 }

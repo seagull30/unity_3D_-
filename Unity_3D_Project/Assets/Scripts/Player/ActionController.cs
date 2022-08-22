@@ -5,30 +5,39 @@ using UnityEngine.UI;
 public class ActionController : MonoBehaviour
 {
     [SerializeField]
-    private float _range;
+    private float _range = 10f;
 
     private bool _pickupActivated = false;
 
     private RaycastHit _hitinfo;
 
-    [SerializeField]
-    private LayerMask _layerMask;
-    
-    [SerializeField]
-    private Text _actionText;
+    private int _layerMask;
 
+    private Text _actionText;
     private PlayerInput _input;
+    private Camera _camera;
+
+    private Inventory _inventory;
+    [SerializeField]
+    private int selectItemNum;
+
+
 
     private void Awake()
     {
-        _input = GetComponentInParent<PlayerInput>();
-        //_actionText = GetComponentInChildren<Text>();
+        _input = GetComponent<PlayerInput>();
+        _camera = GetComponentInChildren<Camera>();
+        _inventory = GetComponentInChildren<Inventory>();
+        _actionText = GetComponentInChildren<Text>();
+        _layerMask = 1 << (LayerMask.NameToLayer("Item"));
     }
 
     private void Update()
     {
         CheckItem();
         TryAction();
+        selectSlot();
+        tryUseItem();
     }
 
     private void TryAction()
@@ -42,14 +51,8 @@ public class ActionController : MonoBehaviour
 
     private void CheckItem()
     {
-        Debug.DrawRay(transform.position, transform.forward, Color.red);
-        if (Physics.Raycast(transform.position, transform.forward, out _hitinfo,10f, _layerMask))
-        {
-            if (_hitinfo.transform.tag == "Item")
-            {
-                ItemInfoAppear();
-            }
-        }
+        if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out _hitinfo, _range, _layerMask))
+            ItemInfoAppear();
         else
             ItemInfoDisappear();
     }
@@ -58,7 +61,7 @@ public class ActionController : MonoBehaviour
     {
         _pickupActivated = true;
         _actionText.gameObject.SetActive(true);
-        _actionText.text = _hitinfo.transform.GetComponent<ItemPickUp>().item.name + "È¹µæ" + "<color=yellow>" + "¿ÞÅ¬¸¯" + "</color>";
+        _actionText.text = _hitinfo.transform.GetComponent<Item>().itemData.name + "È¹µæ" + "<color=yellow>" + "¿ÞÅ¬¸¯" + "</color>";
     }
 
     private void ItemInfoDisappear()
@@ -69,14 +72,45 @@ public class ActionController : MonoBehaviour
 
     private void CanPickUp()
     {
-        if(_pickupActivated)
+        if (_pickupActivated)
         {
-            if(_hitinfo.transform !=null)
+            if (_hitinfo.transform != null)
             {
-                Debug.Log(_hitinfo.transform.GetComponent<ItemPickUp>().item.itemName + "È¹µæ Çß½À´Ï´Ù.");
-                Destroy(_hitinfo.transform.gameObject);
-                ItemInfoDisappear();
+                if (_inventory.AcquireItem(_hitinfo.transform.GetComponent<Item>()))
+                {
+                    Debug.Log(_hitinfo.transform.GetComponent<Item>().itemData.itemName + "È¹µæ Çß½À´Ï´Ù.");
+                    _hitinfo.transform.gameObject.SetActive(false);
+                    ItemInfoDisappear();
+                }
             }
+        }
+    }
+
+    private void selectSlot()
+    {
+        if (_input.selectItem != 0)
+        {
+            _inventory.SelectSlot(selectItemNum);
+            if (_input.selectItem > 0)
+            {
+                ++selectItemNum;
+                if (selectItemNum > 2)
+                    selectItemNum = 0;
+            }
+            else
+            {
+                --selectItemNum;
+                if (selectItemNum < 0)
+                    selectItemNum = 2;
+            }
+            _inventory.SelectSlot(selectItemNum);
+        }
+    }
+    private void tryUseItem()
+    {
+        if (_input.useItem)
+        {
+            _inventory.Useitem();
         }
     }
 
