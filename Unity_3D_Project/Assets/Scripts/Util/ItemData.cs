@@ -8,8 +8,7 @@ public class ItemData : ScriptableObject
     public enum ItemType
     {
         Used,
-        Ingredient,
-        ETC
+        book        
     }
     public string itemName;
     public ItemType itemtype;

@@ -35,5 +35,6 @@ public class Inventory : MonoBehaviour
             slots[_selectSlotNum].UseItem();
     }
 
+
 }
 

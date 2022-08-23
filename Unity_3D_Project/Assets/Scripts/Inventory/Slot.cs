@@ -9,7 +9,6 @@ public class Slot : MonoBehaviour
     public int itemCount;
     public Image itemImage;
     bool isSelet = false;
-
     private void Awake()
     {
         itemImage = GetComponent<Image>();
@@ -34,23 +33,24 @@ public class Slot : MonoBehaviour
     {
         item = null;
         itemCount = 0;
-        itemImage.sprite = null;        
+        itemImage.sprite = null;
     }
 
     public void SelectSlot()
     {
         isSelet = !isSelet;
 
-        Color color = itemImage.color;
         if (isSelet)
-            color = Color.red;
+            itemImage.color = Color.red;
         else
-            color = Color.white;
-        itemImage.color = color;
+            itemImage.color = Color.white;
     }
     public void UseItem()
     {
-        //item.UseEffect();
-        SetSlotCount(-1);
+        if (item != null)
+        {
+            item.itemData.itemPrefab.GetComponent<Use>().UseEffect();
+            SetSlotCount(-1);
+        }
     }
 }

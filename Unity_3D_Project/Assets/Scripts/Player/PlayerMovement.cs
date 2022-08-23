@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private float _walkSpeed = 3f;
 
     [SerializeField]
-    private float _runSpeed = 5f;
+    private float _runSpeed = 10f;
 
     [SerializeField]
     private float _applySpeed;
@@ -21,11 +21,10 @@ public class PlayerMovement : MonoBehaviour
     public Slider StaminaSlider;
 
 
-    [SerializeField]
-    private float jumpForce;
+    public float JumpForce;
 
     private bool isRun = false;
-    public bool isMove = false;
+    private bool isMove = false;
     private bool isGround = true;
 
     // 민감도
@@ -67,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
     {
         IsGround();
         TryJump();
+        CheckMove();
         TryRun();
         Move();
         RestoreStamina();
@@ -92,13 +92,21 @@ public class PlayerMovement : MonoBehaviour
     // 점프
     private void Jump()
     {
-        myRigid.velocity = transform.up * jumpForce;
+        myRigid.velocity = transform.up * JumpForce;
+    }
+
+    private void CheckMove()
+    {
+        if (_input.X == 0 && _input.Y == 0)
+            isMove = false;
+        else
+            isMove = true;
     }
 
     // 달리기 시도
     private void TryRun()
     {
-        if (_stamina > 0f)
+        if (_stamina > 0f && isMove)
         {
             if (_input.Run)
             {
@@ -158,9 +166,10 @@ public class PlayerMovement : MonoBehaviour
         Vector3 _characterRotationY = new Vector3(0f, _yRotation, 0f) * lookSensitivity;
         myRigid.MoveRotation(myRigid.rotation * Quaternion.Euler(_characterRotationY));
     }
+
     private void RestoreStamina()
     {
-        if (_input.X==0&&_input.Y==0)
+        if (!isMove)
         {
             if (_stamina < _initstamina)
             {
@@ -168,5 +177,18 @@ public class PlayerMovement : MonoBehaviour
                 StaminaSlider.value = _stamina;
             }
         }
+    }
+
+    public void UseSnack()
+    {
+        StartCoroutine(InfinityStamina());
+    }
+
+    public IEnumerator InfinityStamina()
+    {
+        _stamina = float.MaxValue;
+        StaminaSlider.value = _stamina;
+        yield return new WaitForSeconds(5f);
+        _stamina = _initstamina;
     }
 }

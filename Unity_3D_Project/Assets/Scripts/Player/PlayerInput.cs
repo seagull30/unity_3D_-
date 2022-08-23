@@ -24,6 +24,6 @@ public class PlayerInput : MonoBehaviour
         Run = Input.GetKey(KeyCode.LeftShift);
         Interaction = Input.GetMouseButtonDown(0);
         useItem =   Input.GetKeyDown(KeyCode.E);
-        selectItem = Input.GetAxisRaw("Mouse ScrollWheel");
+        selectItem = Input.GetAxisRaw("Mouse ScrollWheel");       
     }
 }
