@@ -36,8 +36,8 @@ public class ActionController : MonoBehaviour
     {
         CheckItem();
         TryAction();
-        selectSlot();
-        tryUseItem();
+        SelectSlot();
+        TryUseItem();
     }
 
     private void TryAction()
@@ -86,7 +86,7 @@ public class ActionController : MonoBehaviour
         }
     }
 
-    private void selectSlot()
+    private void SelectSlot()
     {
         if (_input.selectItem != 0)
         {
@@ -106,7 +106,7 @@ public class ActionController : MonoBehaviour
             _inventory.SelectSlot(selectItemNum);
         }
     }
-    private void tryUseItem()
+    private void TryUseItem()
     {
         if (_input.useItem)
         {

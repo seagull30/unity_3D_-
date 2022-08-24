@@ -5,21 +5,28 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     private Slot[] slots;
+    private int _maxSlotNum;
     private int _selectSlotNum;
+    public int ItemCount = 0;
     private void Awake()
     {
         slots = GetComponentsInChildren<Slot>();
+        _maxSlotNum = slots.Length;
         slots[0].SelectSlot();
     }
 
-    public bool AcquireItem(Item _item, int _count = 1)
+    public bool AcquireItem(Item _item)
     {
-        for (int i = 0; i < slots.Length; i++)
+        if (ItemCount <= _maxSlotNum)
         {
-            if (slots[i].item == null)
+            for (int i = 0; i < _maxSlotNum; i++)
             {
-                slots[i].AddItem(_item, _count);
-                return true;
+                if (slots[i].item == null)
+                {
+                    slots[i].AddItem(_item);
+                    ++ItemCount;
+                    return true;
+                }
             }
         }
         return false;
@@ -32,7 +39,10 @@ public class Inventory : MonoBehaviour
     public void Useitem()
     {
         if (slots[_selectSlotNum] != null)
+        {
             slots[_selectSlotNum].UseItem();
+            --ItemCount;
+        }
     }
 
 
