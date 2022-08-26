@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8305595751375918037}
   - component: {fileID: -2548428491371737408}
   - component: {fileID: -6158169576674756535}
+  - component: {fileID: -1099632528938005112}
   m_Layer: 6
   m_Name: Cola Can
   m_TagString: Item
@@ -110,4 +111,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a5a5e8d7cf502945b293194c113ddff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProjectilePrefab: {fileID: 8305595751378177301}
+  ProjectilePrefab: {fileID: 2733132656940176078, guid: b92edd7ba43caf345b661a0a3e042ee0, type: 3}
+--- !u!65 &-1099632528938005112
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8305595751378177301}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.09494366, y: 0.15346396, z: 0.09029679}
+  m_Center: {x: 0.000000007450581, y: 0.07673198, z: -0.000000007450581}

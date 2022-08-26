@@ -1,0 +1,11 @@
+Model Information:
+* title:	Playtime (Baldi)
+* source:	https://sketchfab.com/3d-models/playtime-baldi-22585284851a48c8941234a7b98416d5
+* author:	JohnDoetheModelMaker9 (https://sketchfab.com/johne85)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Playtime (Baldi)" (https://sketchfab.com/3d-models/playtime-baldi-22585284851a48c8941234a7b98416d5) by JohnDoetheModelMaker9 (https://sketchfab.com/johne85) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

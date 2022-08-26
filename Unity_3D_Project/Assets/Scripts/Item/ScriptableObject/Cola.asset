@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: Cola
   itemtype: 0
   itemImage: {fileID: 21300000, guid: 0acc7b73b2fdb23408a358db94647883, type: 3}
-  itemPrefab: {fileID: 1705129010167144, guid: bfa7e8189ab181843b9ac106678a628a, type: 3}
+  itemPrefab: {fileID: 8305595751378177301, guid: f47e22c377906104fb382b50d1d12b93, type: 3}

@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class Cola : Use
 {
-    public GameObject ProjectilePrefab;
-    
     public override void UseEffect()
     {
-
+        ProjectileManager projectileManager = FindObjectOfType<ProjectileManager>();
+        projectileManager.Fire();
     }
 }

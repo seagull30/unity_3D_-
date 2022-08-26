@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Inventory : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Inventory : MonoBehaviour
     private int _maxSlotNum;
     private int _selectSlotNum;
     public int ItemCount = 0;
+    public event UnityAction BookEvent;
     private void Awake()
     {
         slots = GetComponentsInChildren<Slot>();
@@ -17,6 +19,12 @@ public class Inventory : MonoBehaviour
 
     public bool AcquireItem(Item _item)
     {
+        if(_item.itemData.itemtype==ItemData.ItemType.book)
+        {
+            BookEvent.Invoke();
+            return true;
+        }
+
         if (ItemCount <= _maxSlotNum)
         {
             for (int i = 0; i < _maxSlotNum; i++)

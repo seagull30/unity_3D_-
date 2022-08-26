@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &27179811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 27179812}
+  - component: {fileID: 27179813}
+  m_Layer: 7
+  m_Name: Projectile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &27179812
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27179811}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5650094048269848345}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &27179813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27179811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71b62c17aa4ca44c9e124d6555c5e71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ProjecttilePrefab: {fileID: 2733132656940176078, guid: b92edd7ba43caf345b661a0a3e042ee0, type: 3}
 --- !u!1 &162383494
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,7 +57,7 @@ GameObject:
   - component: {fileID: 162383497}
   - component: {fileID: 162383496}
   - component: {fileID: 162383498}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Slot3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +135,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
-  itemCount: 0
   itemImage: {fileID: 0}
 --- !u!1 &284926772
 GameObject:
@@ -104,7 +148,7 @@ GameObject:
   - component: {fileID: 284926775}
   - component: {fileID: 284926774}
   - component: {fileID: 284926776}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Slot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +226,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
-  itemCount: 0
   itemImage: {fileID: 0}
 --- !u!1 &356361532
 GameObject:
@@ -195,7 +238,7 @@ GameObject:
   - component: {fileID: 356361533}
   - component: {fileID: 356361535}
   - component: {fileID: 356361534}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Action Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276,7 +319,7 @@ GameObject:
   - component: {fileID: 474333419}
   - component: {fileID: 474333418}
   - component: {fileID: 474333420}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Slot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -354,7 +397,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
-  itemCount: 0
   itemImage: {fileID: 0}
 --- !u!1 &1493557403
 GameObject:
@@ -367,7 +409,7 @@ GameObject:
   - component: {fileID: 1493557404}
   - component: {fileID: 1493557406}
   - component: {fileID: 1493557405}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Cursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,7 +487,7 @@ GameObject:
   - component: {fileID: 1504661531}
   - component: {fileID: 1504661530}
   - component: {fileID: 1504661533}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -549,6 +591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 790a3cb3aa4744f428abf67522fbb0b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemCount: 0
 --- !u!1 &1609863802
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,7 +603,7 @@ GameObject:
   - component: {fileID: 1609863803}
   - component: {fileID: 1609863805}
   - component: {fileID: 1609863804}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -637,7 +680,7 @@ GameObject:
   - component: {fileID: 5650094046388142749}
   - component: {fileID: 5650094046388142748}
   - component: {fileID: 5650094046388142739}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -739,7 +782,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5650094046476780175}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -778,7 +821,7 @@ GameObject:
   - component: {fileID: 5650094047084270092}
   - component: {fileID: 5650094047084270094}
   - component: {fileID: 5650094047084270093}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -854,7 +897,7 @@ GameObject:
   - component: {fileID: 5650094047324445328}
   - component: {fileID: 5650094047324445330}
   - component: {fileID: 5650094047324445329}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -930,7 +973,7 @@ GameObject:
   - component: {fileID: 5650094047408135161}
   - component: {fileID: 5650094047408135160}
   - component: {fileID: 5650094047408135167}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -961,8 +1004,8 @@ Camera:
   m_GameObject: {fileID: 5650094047408135166}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1013,7 +1056,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5650094047415666985}
   - component: {fileID: 5650094047415666986}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: StaminaSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1109,7 +1152,7 @@ GameObject:
   - component: {fileID: 5650094048269848347}
   - component: {fileID: 5650094048269848346}
   - component: {fileID: 1678656398}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1130,6 +1173,7 @@ Transform:
   m_Children:
   - {fileID: 5650094047408135161}
   - {fileID: 5650094046388142750}
+  - {fileID: 27179812}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1211,7 +1255,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &5650094048269848347
 MonoBehaviour:
@@ -1238,14 +1282,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _walkSpeed: 3
-  _runSpeed: 5
+  _runSpeed: 10
   _applySpeed: 0
   _stamina: 10
   StaminaSlider: {fileID: 5650094047415666986}
-  jumpForce: 3
-  isMove: 0
+  JumpForce: 0
   lookSensitivity: 5
-  cameraRotationLimit: 30
+  cameraRotationLimit: 90
 --- !u!114 &1678656398
 MonoBehaviour:
   m_ObjectHideFlags: 0

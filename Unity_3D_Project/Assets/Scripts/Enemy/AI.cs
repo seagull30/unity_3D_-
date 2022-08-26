@@ -13,7 +13,7 @@ public class AI : MonoBehaviour
         trace
     }
     private Animation Animation;
-    private NavMeshAgent A;
+    private NavMeshAgent _agent;
 
     [SerializeField]
     private float Speed;
@@ -39,10 +39,10 @@ public class AI : MonoBehaviour
     private void Awake()
     {
         _source = GetComponent<AudioSource>();
-        A = GetComponent<NavMeshAgent>();
+        _agent = GetComponent<NavMeshAgent>();
         Animation = GetComponent<Animation>();
         _source = GetComponent<AudioSource>();
-        
+
         TargetPos = gameObject.transform.position;
         _layerMask = 1 << (LayerMask.NameToLayer("Player"));
 
@@ -51,34 +51,33 @@ public class AI : MonoBehaviour
     private void OnEnable()
     {
         // 상속후 속도 각각 설정.
-        GameManager.Instance.FindBook += PlayerFoundBook;
+        GameManager.Instance.BookEvent += PlayerFoundBook;
         GameManager.Instance.Playersound += FindTarget;
-        Speed = 5f;
-        A.speed = Speed;
+        Speed = 10f;
+        _agent.speed = Speed;
         StartCoroutine(movedelay());
     }
 
     IEnumerator movedelay()
     {
-        while(true)
+        while (true)
         {
-            if(GameManager.Instance.IsGameOver)
+            if (GameManager.Instance.IsGameOver)
                 yield break;
 
+            yield return new WaitForSeconds(_coolTime);
             _source.PlayOneShot(MoveSound);
-            A.isStopped = false;
-            yield return new WaitForSeconds(_coolTime);
-            A.isStopped=true;
+            _agent.isStopped = false;
+            yield return new WaitForSeconds(2.0f);
+            _agent.isStopped = true;
             //A.velocity = new Vector3(0f,0f,0f);
-            yield return new WaitForSeconds(_coolTime);
-
         }
     }
 
 
     private void OnDisable()
     {
-        GameManager.Instance.FindBook -= PlayerFoundBook;
+        GameManager.Instance.BookEvent -= PlayerFoundBook;
         GameManager.Instance.Playersound -= FindTarget;
     }
 
@@ -87,14 +86,20 @@ public class AI : MonoBehaviour
         ChangeState(State.Idle);
     }
 
+    //float extraRotationSpeed = 5f;
     private void Update()
     {
-        switch (state)
-        {
-            case State.Idle: UpdateIdle(); break;
-            case State.Patrol: UpdatePatrol(); break;
-            case State.trace: UpdateTrace(); break;
-        }
+
+
+        //Vector3 lookrotation = _agent.steeringTarget - transform.position;
+        //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookrotation), extraRotationSpeed * Time.deltaTime);
+
+        //switch (state)
+        //{
+        //    case State.Idle: UpdateIdle(); break;
+        //    case State.Patrol: UpdatePatrol(); break;
+        //    case State.trace: UpdateTrace(); break;
+        //}
     }
 
     void ChangeState(State nextState)
@@ -111,22 +116,20 @@ public class AI : MonoBehaviour
         }
     }
 
-
-
-    public void UpdateIdle()
-    {
-
-    }
-
-    public void UpdatePatrol()
-    {
-
-    }
-
-    public void UpdateTrace()
-    {
-
-    }
+    //public void UpdateIdle()
+    //{
+    //
+    //}
+    //
+    //public void UpdatePatrol()
+    //{
+    //
+    //}
+    //
+    //public void UpdateTrace()
+    //{
+    //
+    //}
 
     private IEnumerator CoroutineIdle()
     {
@@ -146,7 +149,7 @@ public class AI : MonoBehaviour
                 RandomPoint(out Vector3 asd);
                 TargetPos = asd;
                 Debug.Log(TargetPos);
-                A.SetDestination(TargetPos);
+                _agent.SetDestination(TargetPos);
             }
             if (SearchTarget())
             {
@@ -174,7 +177,7 @@ public class AI : MonoBehaviour
                     yield break;
                 }
             }
-            A.SetDestination(TargetPos);
+            _agent.SetDestination(TargetPos);
             if (Vector3.Distance(transform.position, TargetPos) > _detectionRange)
             {
                 Target = null;
@@ -217,7 +220,8 @@ public class AI : MonoBehaviour
         Debug.Log("위치 찾는중");
         for (int i = 0; i < 30; ++i)
         {
-            Vector3 randomPoint = transform.position + Random.insideUnitSphere * _detectionRange;
+            Vector3 dir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+            Vector3 randomPoint = transform.position + dir*Random.Range(30f,50f);
             if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
             {
                 result = hit.position;
@@ -244,7 +248,6 @@ public class AI : MonoBehaviour
             Debug.Log("찾음");
             Target = target;
             return true;
-
         }
         return false;
     }

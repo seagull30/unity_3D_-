@@ -6,9 +6,14 @@ using UnityEngine.Events;
 public class GameManager : SingletonBehaviour<GameManager>
 {
     public bool IsGameOver = false;
-    public event UnityAction FindBook;
+    public event UnityAction BookEvent;
     public event UnityAction<GameObject> Playersound;
     public GameObject Player;
+
+    private void Awake()
+    {
+        Player.GetComponentInChildren<Inventory>().BookEvent+=FindBook;
+    }
 
     public void Start()
     {
@@ -19,5 +24,12 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
 
     }
+
+    public void FindBook()
+    {
+        BookEvent.Invoke();
+    }
+
+
 
 }
