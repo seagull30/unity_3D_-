@@ -12,7 +12,8 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     private void Awake()
     {
-        Player.GetComponentInChildren<Inventory>().BookEvent+=FindBook;
+        Player.GetComponentInChildren<Inventory>().BookEvent += FindBook;
+        Player.GetComponentInChildren<ActionController>().PlayerSound += PlayerShoutOut;
     }
 
     public void Start()
@@ -30,6 +31,9 @@ public class GameManager : SingletonBehaviour<GameManager>
         BookEvent.Invoke();
     }
 
-
+    public void PlayerShoutOut(GameObject player)
+    {
+        Playersound.Invoke(player);
+    }
 
 }

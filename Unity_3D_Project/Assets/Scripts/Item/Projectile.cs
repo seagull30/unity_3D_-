@@ -34,7 +34,7 @@ public class Projectile : MonoBehaviour
 
     bool CheckWall()
     {
-        Physics.OverlapBoxNonAlloc(transform.forward * 3, new Vector3(1f, 0.5f, 1f), _targetCandidates, Quaternion.identity);
+        Physics.OverlapBoxNonAlloc(transform.forward , new Vector3(0.1f, 0.1f, 0.1f), _targetCandidates, Quaternion.identity);
         foreach (Collider targetCandidate in _targetCandidates)
         {
             if (targetCandidate == null)

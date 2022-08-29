@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Item
   - Enemy
+  - Notebook
+  - Door
+  - SwingingDoor
   layers:
   - Default
   - TransparentFX
@@ -16,7 +19,7 @@ TagManager:
   - Item
   - Player
   - Enemy
-  - 
+  - Door
   - 
   - 
   - 

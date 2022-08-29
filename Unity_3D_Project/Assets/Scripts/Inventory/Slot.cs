@@ -34,12 +34,14 @@ public class Slot : MonoBehaviour
         else
             itemImage.color = Color.white;
     }
-    public void UseItem()
+    public bool UseItem()
     {
         if (item != null)
         {
             item.itemData.itemPrefab.GetComponent<Use>().UseEffect();
             ClearSlot();
+            return true;
         }
+        return false;
     }
 }

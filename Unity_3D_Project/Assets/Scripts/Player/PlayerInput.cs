@@ -14,6 +14,12 @@ public class PlayerInput : MonoBehaviour
     public bool useItem { get; private set; }
     public float selectItem { get; private set; }
 
+    private void Awake()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     private void Update()
     {
         X = Input.GetAxisRaw("Horizontal");

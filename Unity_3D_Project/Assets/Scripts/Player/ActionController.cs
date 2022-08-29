@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ActionController : MonoBehaviour
@@ -21,7 +22,7 @@ public class ActionController : MonoBehaviour
     [SerializeField]
     private int selectItemNum;
 
-
+    public event UnityAction<GameObject> PlayerSound;
 
     private void Awake()
     {
@@ -110,8 +111,26 @@ public class ActionController : MonoBehaviour
     {
         if (_input.useItem)
         {
-            _inventory.Useitem();
+            if (_inventory.Useitem())
+                PlayerShoutOut();
         }
     }
 
+    public void PlayerShoutOut()
+    {
+        PlayerSound.Invoke(gameObject);
+    }
+
+    public void UseLock()
+    {
+        if (_hitinfo.transform != null)
+        {
+            if (_hitinfo.collider.tag == "Door")
+            {
+                SwingDoor door =  _hitinfo.transform.gameObject.GetComponent<SwingDoor>();
+                if (door.IsLock)
+                    door.LockDoor();
+            }
+        }
+    }
 }

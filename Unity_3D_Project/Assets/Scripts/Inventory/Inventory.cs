@@ -19,7 +19,7 @@ public class Inventory : MonoBehaviour
 
     public bool AcquireItem(Item _item)
     {
-        if(_item.itemData.itemtype==ItemData.ItemType.book)
+        if (_item.itemData.itemtype == ItemData.ItemType.book)
         {
             BookEvent.Invoke();
             return true;
@@ -44,13 +44,17 @@ public class Inventory : MonoBehaviour
         _selectSlotNum = slotNum;
         slots[_selectSlotNum].SelectSlot();
     }
-    public void Useitem()
+    public bool Useitem()
     {
         if (slots[_selectSlotNum] != null)
         {
-            slots[_selectSlotNum].UseItem();
-            --ItemCount;
+            if (slots[_selectSlotNum].UseItem())
+            {
+                --ItemCount;
+                return true;
+            }
         }
+        return false;
     }
 
 
