@@ -121,16 +121,5 @@ public class ActionController : MonoBehaviour
         PlayerSound.Invoke(gameObject);
     }
 
-    public void UseLock()
-    {
-        if (_hitinfo.transform != null)
-        {
-            if (_hitinfo.collider.tag == "Door")
-            {
-                SwingDoor door =  _hitinfo.transform.gameObject.GetComponent<SwingDoor>();
-                if (door.IsLock)
-                    door.LockDoor();
-            }
-        }
-    }
+  
 }

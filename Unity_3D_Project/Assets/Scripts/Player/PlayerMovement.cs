@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private float _walkSpeed = 3f;
+    private float _walkSpeed = 10f;
 
     [SerializeField]
-    private float _runSpeed = 10f;
+    private float _runSpeed = 15f;
 
     [SerializeField]
     private float _applySpeed;

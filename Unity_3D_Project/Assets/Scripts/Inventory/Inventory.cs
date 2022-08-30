@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour
     private int _maxSlotNum;
     private int _selectSlotNum;
     public int ItemCount = 0;
-    public event UnityAction BookEvent;
+    public event UnityAction<GameObject> BookEvent;
     private void Awake()
     {
         slots = GetComponentsInChildren<Slot>();
@@ -21,7 +21,7 @@ public class Inventory : MonoBehaviour
     {
         if (_item.itemData.itemtype == ItemData.ItemType.book)
         {
-            BookEvent.Invoke();
+            BookEvent.Invoke(transform.parent.parent.gameObject);
             return true;
         }
 
