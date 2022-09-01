@@ -173,7 +173,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (_stamina < _initstamina)
             {
-                _stamina += Time.deltaTime * 0.5f;
+                _stamina += Time.deltaTime * 2f;
                 StaminaSlider.value = _stamina;
             }
         }

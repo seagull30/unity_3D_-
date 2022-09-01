@@ -32,8 +32,7 @@ public class Baldi : MonoBehaviour
     private Collider[] _targetCandidates = new Collider[5];
     private int _targetCandidateCount;
     private int _layerMask;
-    [SerializeField]
-    private float _detectionRange = 30f;
+    private float _detectionRange = 100f;
 
 
     private void Awake()
@@ -42,7 +41,7 @@ public class Baldi : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         Animation = GetComponent<Animation>();
         _source = GetComponent<AudioSource>();
-
+        _agent.updateRotation = false;
         TargetPos = gameObject.transform.position;
         _layerMask = 1 << (LayerMask.NameToLayer("Player"));
 
@@ -54,7 +53,7 @@ public class Baldi : MonoBehaviour
         GameManager.Instance.BookEvent += PlayerFoundBook;
         GameManager.Instance.Playersound += FindTarget;
 
-        Speed = 20f;
+        Speed = 15f;
         _agent.speed = Speed;
         StartCoroutine(movedelay());
     }
@@ -90,7 +89,20 @@ public class Baldi : MonoBehaviour
     //float extraRotationSpeed = 5f;
     private void Update()
     {
+        Vector2 forward = new Vector2(transform.position.z, transform.position.x);
+        Vector2 steeringTarget = new Vector2(_agent.steeringTarget.z, _agent.steeringTarget.x);
 
+        //방향을 구한 뒤, 역함수로 각을 구한다.
+        Vector2 dir = steeringTarget - forward;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        Debug.Log(angle);
+
+        //방향 적용
+        //if (angle != 0)
+        //{
+        //    _agent.velocity = Vector3.zero;
+            transform.eulerAngles = Vector3.up * angle;
+        //}
 
         //Vector3 lookrotation = _agent.steeringTarget - transform.position;
         //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookrotation), extraRotationSpeed * Time.deltaTime);
@@ -255,6 +267,9 @@ public class Baldi : MonoBehaviour
         return false;
     }
 
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, _detectionRange);
+    }
 
 }

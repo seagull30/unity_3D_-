@@ -2,12 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Entrance : MonoBehaviour
 {
     GameObject NearTrigger;
     GameObject ExitTrigger;
     GameObject ExitSign;
+
+    public event UnityAction NotEscape;
 
     private void Awake()
     {
@@ -38,7 +41,7 @@ public class Entrance : MonoBehaviour
 
         if (GameManager.Instance.ExitCount <= 3)
         {
-            Debug.Log("nonono");
+            NotEscape.Invoke();
             ExitTrigger.SetActive(false);
             ExitSign.SetActive(false);
         }

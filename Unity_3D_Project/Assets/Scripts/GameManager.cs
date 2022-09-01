@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : SingletonBehaviour<GameManager>
 {
@@ -23,7 +24,9 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     internal void Ending()
     {
+        SceneManager.LoadScene("Ending");
         Debug.Log("≈ª√‚«‘");
+        Destroy(gameObject);
     }
 
     public void Start()
@@ -34,6 +37,8 @@ public class GameManager : SingletonBehaviour<GameManager>
     public void GameOver()
     {
 
+        SceneManager.LoadScene("Die");
+        Destroy(gameObject);
     }
 
     public void FindBook(GameObject player)
