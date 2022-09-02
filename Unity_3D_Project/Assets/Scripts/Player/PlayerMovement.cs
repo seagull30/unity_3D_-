@@ -17,16 +17,12 @@ public class PlayerMovement : MonoBehaviour
     // 스테미나
     [SerializeField]
     private float _stamina;
-    private float _initstamina = 10f;
+    private readonly float _initstamina = 10f;
     public Slider StaminaSlider;
 
-
-    public float JumpForce;
-
-    private bool isRun = false;
     private bool isMove = false;
-    private bool isGround = true;
 
+    private int _layerMask;
     // 민감도
     [SerializeField]
     private float lookSensitivity;
@@ -38,18 +34,15 @@ public class PlayerMovement : MonoBehaviour
 
     // 필요한 컴포넌트
     private Camera _eye;
-    private Rigidbody myRigid;
-    private CapsuleCollider capsuleCollider;
+    private Rigidbody _rigidbody;
     private PlayerInput _input;
-    private PlayerHealth _health;
 
     private void Awake()
     {
+        _layerMask = 1 << (LayerMask.NameToLayer("Wall"));
         // 컴포넌트 할당
-        capsuleCollider = GetComponent<CapsuleCollider>();
-        myRigid = GetComponent<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody>();
         _input = GetComponent<PlayerInput>();
-        _health = GetComponent<PlayerHealth>();
         _eye = GetComponentInChildren<Camera>();
     }
     private void OnEnable()
@@ -64,8 +57,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        IsGround();
-        TryJump();
         CheckMove();
         TryRun();
         Move();
@@ -74,31 +65,14 @@ public class PlayerMovement : MonoBehaviour
         CharacterRotation();
     }
 
-    // 지면 체크
-    private void IsGround()
-    {
-        isGround = Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y + 0.1f);
-    }
-
-    // 점프 시도
-    private void TryJump()
-    {
-        if (_input.Jump && isGround)
-        {
-            Jump();
-        }
-    }
-
-    // 점프
-    private void Jump()
-    {
-        myRigid.velocity = transform.up * JumpForce;
-    }
 
     private void CheckMove()
     {
         if (_input.X == 0 && _input.Y == 0)
+        {
             isMove = false;
+            _rigidbody.velocity = Vector3.zero;
+        }
         else
             isMove = true;
     }
@@ -124,7 +98,6 @@ public class PlayerMovement : MonoBehaviour
     // 달리기
     private void Running()
     {
-        isRun = true;
         _applySpeed = _runSpeed;
         _stamina -= Time.deltaTime;
         StaminaSlider.value = _stamina;
@@ -133,7 +106,6 @@ public class PlayerMovement : MonoBehaviour
     // 달리기 취소
     private void RunningCancel()
     {
-        isRun = false;
         _applySpeed = _walkSpeed;
     }
     private void Move()
@@ -143,10 +115,16 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 _moveHorizontal = transform.right * _moveDirX;
         Vector3 _moveVertical = transform.forward * _moveDirZ;
+        Vector3 dir = (_moveHorizontal + _moveVertical).normalized;
 
-        Vector3 _velocity = (_moveHorizontal + _moveVertical).normalized * _applySpeed;
+        //Debug.DrawRay(transform.position,dir, Color.yellow,1f);
+        if (Physics.Raycast(transform.position, dir, 1f, _layerMask))
+        {
+            return;
+        }
+        Vector3 _velocity = dir * _applySpeed;
 
-        myRigid.MovePosition(transform.position + _velocity * Time.deltaTime);
+        _rigidbody.MovePosition(transform.position + _velocity * Time.deltaTime);
     }
 
     private void CameraRotation()
@@ -164,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float _yRotation = _input.MouseX;
         Vector3 _characterRotationY = new Vector3(0f, _yRotation, 0f) * lookSensitivity;
-        myRigid.MoveRotation(myRigid.rotation * Quaternion.Euler(_characterRotationY));
+        _rigidbody.MoveRotation(_rigidbody.rotation * Quaternion.Euler(_characterRotationY));
     }
 
     private void RestoreStamina()
